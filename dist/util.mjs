@@ -1,28 +1,12 @@
-const BASE64_CHARACTERS =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-let __uniq__ = 0;
-
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
+// index.js
+var BASE64_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+var __uniq__ = 0;
 function isBoolean(obj) {
   return typeof obj === "boolean";
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isNumber(obj) {
   return typeof obj === "number" && !Number.isNaN(obj) && Number.isFinite(obj);
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isNumeric(obj) {
   if (isString(obj)) {
     return !Number.isNaN(parseFloat(obj)) && Number.isFinite(parseFloat(obj));
@@ -30,59 +14,21 @@ function isNumeric(obj) {
     return isNumber(obj);
   }
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isString(obj) {
   return typeof obj === "string";
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isEmptyString(obj) {
-  return (
-    isString(obj) &&
-    obj.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "") === ""
-  ); // trim
+  return isString(obj) && obj.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "") === "";
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isObject(obj) {
-  return (
-    typeof obj === "object" &&
-    obj !== null &&
-    obj.constructor === Object &&
-    Object.getPrototypeOf(obj) === Object.prototype
-  );
+  return typeof obj === "object" && obj !== null && obj.constructor === Object && Object.getPrototypeOf(obj) === Object.prototype;
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isEmptyObject(obj) {
   return isObject(obj) && Object.keys(obj).length === 0;
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isNull(obj) {
   return typeof obj === "object" && obj === null;
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isArray(obj) {
   if (Array && Array.isArray) {
     return Array.isArray(obj);
@@ -90,11 +36,6 @@ function isArray(obj) {
     return Object.prototype.toString.call(obj) === "[object Array]";
   }
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isBooleanArray(obj) {
   if (!isArray(obj)) {
     return false;
@@ -106,11 +47,6 @@ function isBooleanArray(obj) {
   }
   return true;
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isNumberArray(obj) {
   if (!isArray(obj)) {
     return false;
@@ -122,11 +58,6 @@ function isNumberArray(obj) {
   }
   return true;
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isStringArray(obj) {
   if (!isArray(obj)) {
     return false;
@@ -138,11 +69,6 @@ function isStringArray(obj) {
   }
   return true;
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isObjectArray(obj) {
   if (!isArray(obj)) {
     return false;
@@ -154,62 +80,24 @@ function isObjectArray(obj) {
   }
   return true;
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isEmptyArray(obj) {
   return isArray(obj) && obj.length === 0;
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isFunction(obj) {
   return typeof obj === "function";
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isEmpty(obj) {
-  return obj === undefined || isNull(obj);
+  return obj === void 0 || isNull(obj);
 }
-/**
- *
- * @param {*} obj
- * @returns {boolean}
- */
 function isUndefined(obj) {
-  return obj === undefined;
+  return obj === void 0;
 }
-/**
- *
- * @param {*} objA
- * @param {*} objB
- * @returns {boolean}
- */
 function isSameType(objA, objB) {
   return typeof objA === typeof objB && objA.constructor === objB.constructor;
 }
-/**
- *
- * @param {number} min
- * @param {number} max
- * @returns {number} min <= n < max
- */
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
-/**
- * CSS cubic-bezier(a, b, c, d) => [{x:0, y:0}, {x:a, y:b}, {x:c, y:d}, {x:1, y:1}]
- * @param {Array<{x: number, y: number}>} points [{x, y}]
- * @param {number} time value between 0 and 1
- * @returns {{x: number, y: number}}
- */
 function bezier(points, time) {
   if (points.length === 1) {
     return points[0];
@@ -218,62 +106,31 @@ function bezier(points, time) {
   for (let i = 0; i < points.length - 1; i++) {
     let x = (1 - time) * points[i].x + time * points[i + 1].x;
     let y = (1 - time) * points[i].y + time * points[i + 1].y;
-    newPoints.push({ x: x, y: y });
+    newPoints.push({ x, y });
   }
   return bezier(newPoints, time);
 }
-/**
- *
- * @param {string} str
- * @returns {string}
- */
 function splitInt(str) {
   return str.split(/([0-9]+)/);
 }
-/**
- *
- * @param {string} str
- * @returns {string}
- */
 function splitFloat(str) {
   return str.split(/([0-9]+\.[0-9]+)+/);
 }
-/**
- *
- * @param {string} str
- * @returns {string}
- */
 function toHalfWidth(str) {
-  return str
-    .replace(/[！-～]/g, function (ch) {
-      return String.fromCharCode(ch.charCodeAt(0) - 0xfee0);
-    })
-    .replace(/[^\S\r\n]/g, function (ch) {
-      return " ";
-    });
+  return str.replace(/[！-～]/g, function(ch) {
+    return String.fromCharCode(ch.charCodeAt(0) - 65248);
+  }).replace(/[^\S\r\n]/g, function(ch) {
+    return " ";
+  });
 }
-/**
- *
- * @param {string} str
- * @returns {string}
- */
 function toFullWidth(str) {
-  return str
-    .replace(/[!-~]/g, function (ch) {
-      return String.fromCharCode(ch.charCodeAt(0) + 0xfee0);
-    })
-    .replace(/[^\S\r\n]/g, function (ch) {
-      return "　";
-    });
+  return str.replace(/[!-~]/g, function(ch) {
+    return String.fromCharCode(ch.charCodeAt(0) + 65248);
+  }).replace(/[^\S\r\n]/g, function(ch) {
+    return "\u3000";
+  });
 }
-/**
- * Get diff between two strings.
- * @param {string} strA
- * @param {string} strB
- * @returns {{ acc: number, result: Array<{ type: number, value: string }> }}
- */
 function compareStrings(strA, strB) {
-  // Create DP
   function C(a, b) {
     const dp = [];
     for (let i = 0; i < a.length + 1; i++) {
@@ -284,12 +141,9 @@ function compareStrings(strA, strB) {
     }
     return dp;
   }
-
-  // Match a to b
   function M(dp, a, b) {
     for (let i = 1; i <= a.length; i++) {
       for (let j = 1; j <= b.length; j++) {
-        // 1 more characters in DP
         if (a[i - 1] === b[j - 1]) {
           dp[i][j] = dp[i - 1][j - 1] + 1;
         } else {
@@ -299,23 +153,15 @@ function compareStrings(strA, strB) {
     }
     return dp;
   }
-
-  // Write diffs
   function P(dp, a, b) {
-    let MATCH = 0,
-      INSERT = 1,
-      DELETE = -1,
-      res = [],
-      matches = 0,
-      i = a.length,
-      j = b.length;
+    let MATCH = 0, INSERT = 1, DELETE = -1, res = [], matches = 0, i = a.length, j = b.length;
     while (i > 0 || j > 0) {
       const prev = res[res.length - 1];
       const itemA = a[i - 1];
       const itemB = b[j - 1];
       if (i > 0 && j > 0 && itemA === itemB) {
         if (prev && prev.type === MATCH) {
-          prev.value = itemA + prev.value; // add to prev
+          prev.value = itemA + prev.value;
         } else {
           res.push({ type: MATCH, value: itemA });
         }
@@ -324,14 +170,14 @@ function compareStrings(strA, strB) {
         j--;
       } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
         if (prev && prev.type === INSERT) {
-          prev.value = itemB + prev.value; // add to prev
+          prev.value = itemB + prev.value;
         } else {
           res.push({ type: INSERT, value: itemB });
         }
         j--;
       } else if (i > 0 && (j === 0 || dp[i][j - 1] < dp[i - 1][j])) {
         if (prev && prev.type === DELETE) {
-          prev.value = itemA + prev.value; // add to prev
+          prev.value = itemA + prev.value;
         } else {
           res.push({ type: DELETE, value: itemA });
         }
@@ -339,38 +185,22 @@ function compareStrings(strA, strB) {
       }
     }
     return {
-      acc: (matches * 2) / (a.length + b.length),
-      result: res.reverse(),
+      acc: matches * 2 / (a.length + b.length),
+      result: res.reverse()
     };
   }
-
   return P(M(C(strA, strB), strA, strB), strA, strB);
 }
-/**
- * Generate id mongodb objectId style.
- * @returns {string}
- */
 function id() {
-  return (
-    Math.floor(new Date().getTime() / 1000).toString(16) +
-    "xxxxxx".replace(/x/g, function (v) {
-      return Math.floor(Math.random() * 16).toString(16);
-    }) +
-    (__uniq__++).toString(16).padStart(6, "0")
-  );
+  return Math.floor((/* @__PURE__ */ new Date()).getTime() / 1e3).toString(16) + "xxxxxx".replace(/x/g, function(v) {
+    return Math.floor(Math.random() * 16).toString(16);
+  }) + (__uniq__++).toString(16).padStart(6, "0");
 }
-/**
- * Encrypt string with XOR Cipher
- * @param {string} str
- * @param {string} salt
- * @returns {string}
- */
 function xor(str, salt) {
   if (salt.length === 0) {
     return str;
   }
-  let res = "",
-    i = 0;
+  let res = "", i = 0;
   while (salt.length < str.length) {
     salt += salt;
   }
@@ -380,19 +210,11 @@ function xor(str, salt) {
   }
   return res;
 }
-/**
- * Ref. https://github.com/mathiasbynens/base64
- * @param {string} str
- * @param {string|undefined} type mimetype
- * @returns {string} base64
- */
 function toBase64(str, type) {
   str = String(str);
   if (/[^\0-\xFF]/.test(str)) {
-    // Note: no need to special-case astral symbols here, as surrogates are
-    // matched, and the input is supposed to only contain ASCII anyway.
     throw new Error(
-      "The string to be encoded contains characters outside of the Latin1 range.",
+      "The string to be encoded contains characters outside of the Latin1 range."
     );
   }
   let padding = str.length % 3;
@@ -402,61 +224,35 @@ function toBase64(str, type) {
   let b;
   let c;
   let buffer;
-  // Make sure any padding is handled outside of the loop.
   let length = str.length - padding;
-
   while (++position < length) {
-    // Read three bytes, i.e. 24 bits.
     a = str.charCodeAt(position) << 16;
     b = str.charCodeAt(++position) << 8;
     c = str.charCodeAt(++position);
     buffer = a + b + c;
-    // Turn the 24 bits into four chunks of 6 bits each, and append the
-    // matching character for each of them to the output.
-    output +=
-      BASE64_CHARACTERS.charAt((buffer >> 18) & 0x3f) +
-      BASE64_CHARACTERS.charAt((buffer >> 12) & 0x3f) +
-      BASE64_CHARACTERS.charAt((buffer >> 6) & 0x3f) +
-      BASE64_CHARACTERS.charAt(buffer & 0x3f);
+    output += BASE64_CHARACTERS.charAt(buffer >> 18 & 63) + BASE64_CHARACTERS.charAt(buffer >> 12 & 63) + BASE64_CHARACTERS.charAt(buffer >> 6 & 63) + BASE64_CHARACTERS.charAt(buffer & 63);
   }
-
   if (padding == 2) {
     a = str.charCodeAt(position) << 8;
     b = str.charCodeAt(++position);
     buffer = a + b;
-    output +=
-      BASE64_CHARACTERS.charAt(buffer >> 10) +
-      BASE64_CHARACTERS.charAt((buffer >> 4) & 0x3f) +
-      BASE64_CHARACTERS.charAt((buffer << 2) & 0x3f) +
-      "=";
+    output += BASE64_CHARACTERS.charAt(buffer >> 10) + BASE64_CHARACTERS.charAt(buffer >> 4 & 63) + BASE64_CHARACTERS.charAt(buffer << 2 & 63) + "=";
   } else if (padding == 1) {
     buffer = str.charCodeAt(position);
-    output +=
-      BASE64_CHARACTERS.charAt(buffer >> 2) +
-      BASE64_CHARACTERS.charAt((buffer << 4) & 0x3f) +
-      "==";
+    output += BASE64_CHARACTERS.charAt(buffer >> 2) + BASE64_CHARACTERS.charAt(buffer << 4 & 63) + "==";
   }
-
   return (type ? `data:${type};base64,` : "") + output;
 }
-/**
- * Ref. https://github.com/mathiasbynens/base64
- * @param {string} str base64
- * @returns {string}
- */
 function fromBase64(str) {
-  str = String(str)
-    .replace(/^data:([A-Za-z-+\/]+);[A-Za-z0-9]+,/, "")
-    .replace(/[\t\n\f\r ]/g, "");
+  str = String(str).replace(/^data:([A-Za-z-+\/]+);[A-Za-z0-9]+,/, "").replace(/[\t\n\f\r ]/g, "");
   let length = str.length;
   if (length % 4 == 0) {
     str = str.replace(/==?$/, "");
     length = str.length;
   }
-  // http://whatwg.org/C#alphanumeric-ascii-characters
   if (length % 4 == 1 || /[^+a-zA-Z0-9/]/.test(str)) {
     throw new Error(
-      "Invalid character: the string to be decoded is not correctly encoded.",
+      "Invalid character: the string to be decoded is not correctly encoded."
     );
   }
   let bitCounter = 0;
@@ -467,30 +263,16 @@ function fromBase64(str) {
   while (++position < length) {
     buffer = BASE64_CHARACTERS.indexOf(str.charAt(position));
     bitStorage = bitCounter % 4 ? bitStorage * 64 + buffer : buffer;
-    // Unless this is the first of a group of 4 characters…
     if (bitCounter++ % 4) {
-      // …convert the first 8 bits to a single ASCII character.
       output += String.fromCharCode(
-        0xff & (bitStorage >> ((-2 * bitCounter) & 6)),
+        255 & bitStorage >> (-2 * bitCounter & 6)
       );
     }
   }
   return output;
 }
-/**
- * Parse string command to array.
- * @param {string} str
- * @returns {string[]}
- * @example
- * parseCommand("git commit -m \'update \\'many\\' features\' -f true")
- * // ['git', 'commit', '-m', "update \\'many\\' features", '-f', 'true']
- */
 function parseCommand(str) {
-  let result = [],
-    i = 0,
-    tmp = str.replace(/\\'|\\"/g, "00"),
-    bracket = null,
-    part = "";
+  let result = [], i = 0, tmp = str.replace(/\\'|\\"/g, "00"), bracket = null, part = "";
   while (i < str.length) {
     if (!bracket) {
       if (tmp[i] === "'" || tmp[i] === '"') {
@@ -519,11 +301,6 @@ function parseCommand(str) {
   }
   return result;
 }
-/**
- * Parse query string in url.
- * @param {string} str
- * @returns {object}
- */
 function parseQueryString(str) {
   const qs = str.indexOf("?") > -1 ? str.split("?").pop() : str;
   let result = {};
@@ -536,37 +313,19 @@ function parseQueryString(str) {
   }
   return result;
 }
-/**
- * Parse $ + key in string.
- *
- * Dot notation supported.
- * @param {string} str
- * @param {object} obj
- * @returns {string}
- * @example
- * const str = "${color.name} sky";
- * const obj = {color:{name:"blue"}};
- * parseTemplate(str, obj); // "blue sky"
- */
 function parseTemplate(str, obj) {
-  return str.replace(/\$\{[^}]+\}/g, function (item) {
+  return str.replace(/\$\{[^}]+\}/g, function(item) {
     const key = item.substring(2, item.length - 1) ?? "";
     if (key.indexOf(".") > -1) {
       return parseTemplate(
         "${" + key.split(".").slice(1).join(".") + "}",
-        obj[key.split(".")[0]],
+        obj[key.split(".")[0]]
       );
     } else {
       return obj[key] ?? "";
     }
   });
 }
-/**
- * Fill array to deepcopied value.
- * @param {number} len
- * @param {*} value
- * @returns {array}
- */
 function createArray(len, value) {
   let arr = new Array(len);
   if (isFunction(value)) {
@@ -588,47 +347,23 @@ function createArray(len, value) {
   }
   return arr;
 }
-/**
- * Get minimum value in array.
- * @param {number[]} arr
- * @returns {number}
- */
 function getMinValue(arr) {
-  return arr.reduce(function (prev, curr) {
+  return arr.reduce(function(prev, curr) {
     return curr < prev ? curr : prev;
   }, arr[0] || 0);
 }
-/**
- * Get maximum value in array.
- * @param {number[]} arr
- * @returns {number}
- */
 function getMaxValue(arr) {
-  return arr.reduce(function (prev, curr) {
+  return arr.reduce(function(prev, curr) {
     return curr > prev ? curr : prev;
   }, arr[0] || 0);
 }
-/**
- * Get arithmetic mean.
- * @param {number[]} arr
- * @returns {number}
- */
 function getMeanValue(arr) {
-  return (
-    arr.reduce(function (prev, curr) {
-      return prev + curr;
-    }, 0) / arr.length
-  );
+  return arr.reduce(function(prev, curr) {
+    return prev + curr;
+  }, 0) / arr.length;
 }
-/**
- * Get most frequent value in array.
- * @param {any[]} arr
- * @returns {any}
- */
 function getModeValue(arr) {
-  let seen = {},
-    maxValue = arr[0],
-    maxCount = 1;
+  let seen = {}, maxValue = arr[0], maxCount = 1;
   for (let i = 0; i < arr.length; i++) {
     const value = arr[i];
     seen[value] = seen[value] ? seen[value] + 1 : 1;
@@ -639,15 +374,6 @@ function getModeValue(arr) {
   }
   return maxValue;
 }
-/**
- * Sort array ascending order.
- *
- * Order of types:
- *
- * [undefined, null, boolean, number, string, object, array, function]
- * @param {array} arr
- * @returns {array}
- */
 function sortArray(arr) {
   const priorities = [
     isUndefined,
@@ -657,51 +383,37 @@ function sortArray(arr) {
     isString,
     isObject,
     isArray,
-    isFunction,
+    isFunction
   ];
-  return arr.sort(function (a, b) {
-    const aIdx = priorities.findIndex(function (fn) {
+  return arr.sort(function(a, b) {
+    const aIdx = priorities.findIndex(function(fn) {
       return fn(a);
     });
-
-    const bIdx = priorities.findIndex(function (fn) {
+    const bIdx = priorities.findIndex(function(fn) {
       return fn(b);
     });
-
     if (aIdx !== bIdx) {
       return aIdx - bIdx;
     } else if (aIdx === 0 || aIdx === 1) {
-      // undefined, null
       return 0;
     } else if (aIdx === 2) {
-      // boolean
-      return a !== b ? (a ? 1 : -1) : 0;
+      return a !== b ? a ? 1 : -1 : 0;
     } else if (aIdx === 3) {
-      // number
       return a - b;
     } else if (aIdx === 4) {
-      // string
-      return a.localeCompare(b, undefined, {
+      return a.localeCompare(b, void 0, {
         numeric: true,
-        sensitivity: "base",
+        sensitivity: "base"
       });
     } else if (aIdx === 5) {
-      // object
       return Object.keys(a).length - Object.keys(b).length;
     } else if (aIdx === 6) {
-      // array
       return a.length - b.length;
     } else {
-      // function, others
       return 0;
     }
   });
 }
-/**
- * Ref. https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
- * @param {array} arr
- * @returns {array}
- */
 function shuffleArray(arr) {
   let i = arr.length;
   while (i > 0) {
@@ -711,52 +423,37 @@ function shuffleArray(arr) {
   }
   return arr;
 }
-/**
- * Get random value in array.
- * @param {array} arr
- * @returns {any}
- */
 function getRandomValue(arr) {
   return arr[Math.floor(random(0, arr.length))];
 }
-/**
- *
- * @param {array[]} arr e.g. [[1,2,3],[4,5,6,7],[8,9,10]]
- * @returns {array}
- */
 function getCases(arr) {
   function getFirstIndexes(a) {
     if (a.length < 1) {
       return;
     }
-    const result = [];
+    const result2 = [];
     for (let i = 0; i < a.length; i++) {
-      result.push(0);
+      result2.push(0);
     }
-    return result;
+    return result2;
   }
-
-  function getNextIndexes(a, indexes) {
+  function getNextIndexes(a, indexes2) {
     for (let i = a.length - 1; i >= 0; i--) {
-      // Decrease current index
-      if (indexes[i] < a[i].length - 1) {
-        indexes[i] += 1;
-        return indexes;
+      if (indexes2[i] < a[i].length - 1) {
+        indexes2[i] += 1;
+        return indexes2;
       }
-      // Reset current index
-      indexes[i] = 0;
+      indexes2[i] = 0;
     }
     return;
   }
-
-  function getValues(a, indexes) {
-    const result = [];
+  function getValues(a, indexes2) {
+    const result2 = [];
     for (let i = 0; i < a.length; i++) {
-      result.push(a[i][indexes[i]]);
+      result2.push(a[i][indexes2[i]]);
     }
-    return result;
+    return result2;
   }
-
   const result = [];
   let indexes = getFirstIndexes(arr);
   while (indexes) {
@@ -766,11 +463,6 @@ function getCases(arr) {
   }
   return result;
 }
-/**
- * Deepcopy
- * @param {object|array} obj
- * @returns {object|array}
- */
 function copyObject(obj) {
   const result = isArray(obj) ? [] : {};
   for (const [key, value] of Object.entries(obj)) {
@@ -778,12 +470,6 @@ function copyObject(obj) {
   }
   return result;
 }
-/**
- *
- * @param {object[]} arr
- * @param {string} key
- * @returns {object}
- */
 function groupByKey(arr, key) {
   const group = {};
   for (const obj of arr) {
@@ -795,16 +481,6 @@ function groupByKey(arr, key) {
   }
   return group;
 }
-/**
- * Query operator list:
- *
- * $and, $nand, $or, $nor, $in, $nin, $gt, $gte, $lt, $lte, $eq, $ne, $fn, $re
- *
- * https://www.mongodb.com/docs/manual/tutorial/query-documents/
- * @param {object} obj
- * @param {object} qry
- * @returns {boolean}
- */
 function queryObject(obj, qry) {
   const QUERY_OPERATORS = {
     and: ["$and"],
@@ -821,9 +497,8 @@ function queryObject(obj, qry) {
     equal: ["$equal", "$eq"],
     notEqual: ["$notEqual", "$neq", "$ne"],
     function: ["$function", "$func", "$fn"],
-    regexp: ["$regexp", "$regex", "$re", "$reg"],
+    regexp: ["$regexp", "$regex", "$re", "$reg"]
   };
-
   function A(d, q) {
     for (const [key, value] of Object.entries(q)) {
       if (!B(d, value, key.split("."))) {
@@ -832,7 +507,6 @@ function queryObject(obj, qry) {
     }
     return true;
   }
-
   function B(d, q, k) {
     const o = k.shift();
     if (k.length > 0) {
@@ -844,7 +518,6 @@ function queryObject(obj, qry) {
     }
     return C(d, q, o);
   }
-
   function C(d, q, o) {
     if (QUERY_OPERATORS.and.indexOf(o) > -1) {
       for (const v of q) {
@@ -920,72 +593,96 @@ function queryObject(obj, qry) {
       return C(d[o], q, "$equal");
     }
   }
-
   return A(obj, qry);
 }
-/**
- *
- * @param {{ width: number, height: number }} src source size
- * @param {{ width: number, height: number }} dst destination size
- * @returns {{width: number, height: number}}
- */
 function getContainedSize(src, dst) {
   const aspectRatio = src.width / src.height;
   if (aspectRatio < dst.width / dst.height) {
     return {
       width: dst.height * aspectRatio,
-      height: dst.height,
+      height: dst.height
     };
   } else {
     return {
       width: dst.width,
-      height: dst.width / aspectRatio,
+      height: dst.width / aspectRatio
     };
   }
 }
-/**
- *
- * @param {{ width: number, height: number }} src source size
- * @param {{ width: number, height: number }} dst destination size
- * @returns {{width: number, height: number}}
- */
 function getCoveredSize(src, dst) {
   const aspectRatio = src.width / src.height;
   if (aspectRatio < dst.width / dst.height) {
     return {
       width: dst.width,
-      height: dst.width / aspectRatio,
+      height: dst.width / aspectRatio
     };
   } else {
     return {
       width: dst.height * aspectRatio,
-      height: dst.height,
+      height: dst.height
     };
   }
 }
-/**
- *
- * @param {number} delay ms
- * @returns {Promise<void>}
- */
 function wait(delay) {
-  return new Promise(function (resolve) {
+  return new Promise(function(resolve) {
     return setTimeout(resolve, delay);
   });
 }
-/**
- * Ref. https://stackoverflow.com/questions/24586110/resolve-promises-one-after-another-i-e-in-sequence
- * @param {function[]} funcs The functions will return promise.
- * @returns {Promise<array>}
- */
 function promiseAll(funcs) {
-  return funcs.reduce(function (prevPromise, currFunction) {
-    return prevPromise.then(function (prev) {
-      return currFunction().then(function (curr) {
+  return funcs.reduce(function(prevPromise, currFunction) {
+    return prevPromise.then(function(prev) {
+      return currFunction().then(function(curr) {
         return prev.concat([curr]);
       });
     });
   }, Promise.resolve([]));
 }
-
-export { createArray as array, bezier, getCases as cases, getRandomValue as choose, compareStrings as compare, getContainedSize as contain, copyObject as copy, getCoveredSize as cover, fromBase64, groupByKey as group, id, isArray, isBoolean, isBooleanArray, isEmpty, isEmptyArray, isEmptyObject, isEmptyString, isFunction, isNull, isNumber, isNumberArray, isNumeric, isObject, isObjectArray, isSameType, isString, isStringArray, getMaxValue as max, getMeanValue as mean, getMinValue as min, getModeValue as mode, parseCommand, parseQueryString, parseTemplate, promiseAll, queryObject as query, random, shuffleArray as shuffle, sortArray as sort, splitFloat, splitInt, toBase64, toFullWidth, toHalfWidth, wait, xor };
+export {
+  createArray as array,
+  bezier,
+  getCases as cases,
+  getRandomValue as choose,
+  compareStrings as compare,
+  getContainedSize as contain,
+  copyObject as copy,
+  getCoveredSize as cover,
+  fromBase64,
+  groupByKey as group,
+  id,
+  isArray,
+  isBoolean,
+  isBooleanArray,
+  isEmpty,
+  isEmptyArray,
+  isEmptyObject,
+  isEmptyString,
+  isFunction,
+  isNull,
+  isNumber,
+  isNumberArray,
+  isNumeric,
+  isObject,
+  isObjectArray,
+  isSameType,
+  isString,
+  isStringArray,
+  getMaxValue as max,
+  getMeanValue as mean,
+  getMinValue as min,
+  getModeValue as mode,
+  parseCommand,
+  parseQueryString,
+  parseTemplate,
+  promiseAll,
+  queryObject as query,
+  random,
+  shuffleArray as shuffle,
+  sortArray as sort,
+  splitFloat,
+  splitInt,
+  toBase64,
+  toFullWidth,
+  toHalfWidth,
+  wait,
+  xor
+};
